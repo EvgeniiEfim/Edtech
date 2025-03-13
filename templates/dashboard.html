@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Дашборд ученика</h2>
+<h3>Информация о пользователе</h3>
+<p>Имя: {{ user.name }}</p>
+<h3>Посещаемые занятия</h3>
+<ul>
+    {% for subject in user.attendance %}
+        <li>{{ subject }}</li>
+    {% endfor %}
+</ul>
+<h3>Расписание занятий</h3>
+<ul>
+    {% for day, subjects in user.schedule.items() %}
+        <li>{{ day }}: {{ ', '.join(subjects) }}</li>
+    {% endfor %}
+</ul>
+<h3>График успеваемости</h3>
+<div>{{ graph|safe }}</div>
+
+<!-- Блок с курсами -->
+<h3>Доступные курсы</h3>
+<ul>
+    {% for course in courses %}
+        <li>
+            <a href="{{ url_for('course_detail', course_id=course.id) }}">
+                {{ course.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

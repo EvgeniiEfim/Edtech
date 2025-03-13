@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>{{ course.title }}</h2>
+<div>
+    <p><strong>Описание:</strong> {{ course.description }}</p>
+    <p><strong>Продолжительность:</strong> {{ course.estimatedDuration }} часов</p>
+    <p><strong>Уровень:</strong> {{ course.difficultyLevel }}</p>
+    <!-- Добавьте другие поля курса по мере необходимости -->
+</div>
+<h3>Доступные уроки</h3>
+<ul>
+    {% for lesson in lessons %}
+        <li>
+            <a href="{{ url_for('lesson_detail', course_id=course.id, lesson_id = lesson.id ) }}">
+                {{ lesson.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

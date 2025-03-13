@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profiles</title>
+    <style>
+        .user-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .user-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .user-info {
+            margin-top: 10px;
+        }
+        .field {
+            margin: 5px 0;
+        }
+        .null-value {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="user-container">
+        {% for user in users %}
+        <div class="user-card">
+            <div class="avatar-container">
+                {% if user.avatarUrl %}
+                    <img src="{{ user.avatarUrl }}" class="avatar" alt="User avatar">
+                {% else %}
+                    <div class="avatar null-value">No avatar</div>
+                {% endif %}
+            </div>
+            
+            <div class="user-info">
+                <div class="field">ID: {{ user.id }}</div>
+                <div class="field">Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a></div>
+                
+                {% if user.fullName != 'null null' %}
+                    <div class="field">Name: {{ user.fullName }}</div>
+                {% endif %}
+                
+                {% if user.bio %}
+                    <div class="field">Bio: {{ user.bio }}</div>
+                {% else %}
+                    <div class="field null-value">No bio</div>
+                {% endif %}
+                
+                {% if user.phoneNumber %}
+                    <div class="field">Phone: <a href="tel:{{ user.phoneNumber }}">{{ user.phoneNumber }}</a></div>
+                {% else %}
+                    <div class="field null-value">No phone number</div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
